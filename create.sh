@@ -3,7 +3,7 @@
 NAME=${1:?"missing arg position 1 for PROJECT_NAME"}
 HOST=$1.Host
 APPLICATION=$1.Application
-TEST=$1.Tests
+TEST=$1.Application.Tests
 
 if [ -d "$NAME" ]; then
   echo "Directory $NAME already exists."
@@ -157,4 +157,23 @@ EOM
         ]
     }
 }
+EOM
+
+/bin/grep -v "</Project>" src/$HOST/$HOST.csproj > temp && mv temp src/$HOST/$HOST.csproj
+/bin/cat >> src/$HOST/$HOST.csproj <<EOM
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
 EOM
