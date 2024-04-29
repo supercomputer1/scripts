@@ -17,7 +17,9 @@ curl https://raw.githubusercontent.com/supercomputer1/scripts/master/create.sh -
 ├── src
 │   ├── Name.Application
 │   │   ├── Name.Application.csproj
-│   │   └── Class1.cs
+│   │   ├── Class1.cs
+    │   ├── Core
+    │   └── Infrastructure
 │   └── Name.Host
 │       ├── Name.Host.csproj
 │       ├── Program.cs
