@@ -40,12 +40,17 @@ dotnet sln add tests/*/*.csproj
 
 cd src/$HOST
 dotnet add reference ../$APPLICATION/$APPLICATION.csproj
-dotnet add package Microsoft.Extensions.Hosting
-dotnet add package Serilog.AspNetCore
+dotnet add package Microsoft.Extensions.Hosting --interactive
+dotnet add package Serilog.AspNetCore --interactive
 cd ../../
 
 cd tests/$TEST
 dotnet add reference ../../src/*/*.csproj
+cd ../../
+
+cd src/$APPLICATION
+mkdir Core 
+mkdir Infrastructure
 cd ../../
 
 # file 
@@ -159,7 +164,7 @@ EOM
 }
 EOM
 
-/bin/grep -v "</Project>" src/$HOST/$HOST.csproj > temp && mv temp src/$HOST/$HOST.csproj
+grep -v "</Project>" src/$HOST/$HOST.csproj > temp && mv temp src/$HOST/$HOST.csproj
 /bin/cat >> src/$HOST/$HOST.csproj <<EOM
   <ItemGroup>
     <None Update="appsettings.json">
